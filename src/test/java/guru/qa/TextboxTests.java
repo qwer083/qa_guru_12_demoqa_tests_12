@@ -21,7 +21,6 @@ public class TextboxTests {
 
     @Test
     void fillFormTest() {
-
         String name = "Alex Egorov";
 
         open("/text-box");
@@ -32,12 +31,6 @@ public class TextboxTests {
       $("[id=permanentAddress]").setValue("Another street 2");
       $("[id=submit]").click();
 
-      $("[id=output]").shouldHave(text(name), text("alex@egorov.com"),
-              text("Some street 1"), text("Another street 2"));
-
-        $("[id=output] [id=name]").shouldHave(text(name));
-
-        $("[id=output]").$("[id=name]").shouldHave(text(name));
 
     }
 }
