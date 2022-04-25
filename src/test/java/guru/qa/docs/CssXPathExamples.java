@@ -41,6 +41,5 @@ public class CssXPathExamples {
         $x("//div[text()[contains(.,'ello qa.gur')]]");
         $(byText("Hello qa.guru"));
         $(withText("ello qa.gur"));
-
     }
 }
