@@ -1,4 +1,4 @@
-package guru.qa.HomeWork;
+package guru.qa.homeWork;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;
@@ -32,14 +32,13 @@ public class FormValidation {
         String phoneNumber = "41541563";
         String subject = "English";
         String hobby = "Reading";
-        String imgPath = "img.jpg/test.png";
+        String imgPath = "img/test";
         String address = "NCR, Noida, 153126";
         String state = "NCR";
         String city = "Noida";
-        String month = birth.getMonth().toString().charAt(0)                 //получаем из даты название месяца
-                + birth.getMonth().toString().substring(1).toLowerCase();
-        SelenideElement stateCity = $("#stateCity-wrapper");        //переменная для часто используемого селектора
-        ArrayList<SelenideElement> actions = new ArrayList<>();              // коллекция селекторов для обёртки stateCity
+        String month = birth.getMonth().toString().charAt(0) + birth.getMonth().toString().substring(1).toLowerCase();
+        SelenideElement stateCity = $("#stateCity-wrapper");
+        ArrayList<SelenideElement> actions = new ArrayList<>();
         actions.add(stateCity.$(byText("Select State")));
         actions.add(stateCity.$(byText(state)));
         actions.add(stateCity.$(byText("Select City")));
