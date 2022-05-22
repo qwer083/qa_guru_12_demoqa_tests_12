@@ -13,7 +13,7 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
-public class FormValidation {
+public class formValidation {
 
     @BeforeAll
     static void prepare() {
@@ -29,10 +29,10 @@ public class FormValidation {
         String lastName = "Ivanova";
         String email = "Anna@mail.ru";
         String gender = "Female";
-        String phoneNumber = "41541563";
+        String phoneNumber = "8941541563";
         String subject = "English";
         String hobby = "Reading";
-        String imgPath = "img/test";
+        String ImgPath = "38.PNG";
         String address = "NCR, Noida, 153126";
         String state = "NCR";
         String city = "Noida";
@@ -57,7 +57,7 @@ public class FormValidation {
         $("[aria-label$='" + month + " " + birth.getDayOfMonth() + "th, " + birth.getYear() + "']").click();
         $("#subjectsInput").setValue(subject).pressEnter();
         $("#hobbiesWrapper").$(byText(hobby)).click();
-        $("#uploadPicture").uploadFromClasspath(imgPath);
+        $("#uploadPicture"). uploadFromClasspath("38.PNG");
         $("#currentAddress").setValue(address);
         for (SelenideElement selenideElement : actions) {
             selenideElement.click();
@@ -66,16 +66,14 @@ public class FormValidation {
 
         $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
         $(".modal-body").shouldHave(
-                text(firstName + " " + lastName),
-                text(email),
-                text(gender),
-                text(phoneNumber),
-                text(birth.getDayOfMonth() + " " + month + "," + birth.getYear()),
-                text(subject),
-                text(hobby),
-                text(imgPath.substring(4)),
-                text(address),
-                text(state + " " + city)
-        );
+                new com.codeborne.selenide.Condition[]{text(firstName + " " + lastName), 
+                        text(email), 
+                        text(gender), 
+                        text(phoneNumber), 
+                        text(birth.getDayOfMonth() + " " + month + "," + birth.getYear()), 
+                        text(subject), text(hobby),
+                        text(ImgPath),
+                        text(address), 
+                        text(state + " " + city)});
     }
-}
+    }
