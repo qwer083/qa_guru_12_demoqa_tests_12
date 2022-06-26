@@ -76,4 +76,7 @@ public class formValidation {
                         text(address), 
                         text(state + " " + city)});
     }
+
+    public Object openPage() {
     }
+}
