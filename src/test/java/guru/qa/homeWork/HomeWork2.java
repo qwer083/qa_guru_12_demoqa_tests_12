@@ -1,72 +1,67 @@
 package guru.qa.homeWork;
 
-import com.codeborne.selenide.Configuration;
-import org.apache.commons.lang3.StringUtils;
-import org.junit.jupiter.api.BeforeAll;
+
+import com.github.javafaker.Faker;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import sun.nio.cs.Surrogate;
+import pages.formValidation.*
 
+import java.util.List;
 
-import java.time.LocalDate;
 import static java.lang.String.format;
-
-public class RegFormTests {
-    formValidation registrationFormPage = new formValidation();
-    Surrogate.Generator gen = new Surrogate.Generator();
+import static utils.RandomUtils.*
 
 
-    LocalDate birthDate = gen.getClass(birthDate);
-    String firstName = gen.getClass(firstName);
-    String lastName = gen.getClass(lastName);
-    String email = gen.getClass(email);
-    String gender = gen.getClass(gender);
-    String phoneNumber = gen.getClass(phoneNumber;
-    String subject = gen.getClass(subject);
-    String hobby = gen.getClass(hobby);
-    String imgPath = "img/38.png";
-    String address = gen.getClass(address);
-    String state = gen.getClass(state);
-    String city = gen.getClass(city);
+public class PracticeFormTest extends formValidation {
 
-    //expected results
-    String expectedFullName = format("%s %s", firstName, lastName);
-    String expectedMonth = StringUtils.capitalize(birthDate.getMonth().toString().toLowerCase()); //Capitalized month name
-    String expectedDate = format("%s %s,%s", birthDate.getDayOfMonth(), expectedMonth, birthDate.getYear());
-    String expectedLocation = format("%s %s", state, city);
-    String expectedFileName = imgPath.substring(4);
+    Faker faker = new Faker();
+    formValidation registrationForm = new formValidation();
 
-    @BeforeAll
-    static void prepare() {
-        Configuration.holdBrowserOpen = true;
-        Configuration.baseUrl = "https://demoqa.com";
-        Configuration.browserSize = "1920x1080";
-    }
+    
+   
+    String fistName = faker.name().firstName(),
+            lastName = faker.name().lastName(),
+            fullName = format("%s %s", fistName, lastName),
+            gender = faker.getClass(gender),
+            email = faker.internet().emailAddress(),
+            mobile = faker.getClass(10),
+            birthDay = faker.getClass(birthDay),
+            birthYear = faker.getClass(birthYear),
+            birthMonth = faker.getClass(birthMonth),
+            address = faker.address().fullAddress(),
+            state = "NCR",
+            city = "Noida";
 
     @Test
-    void execute() {
-        registrationFormPage.openPage()
-                .getClass(firstName)
+    @DisplayName("Fill and submit registration form")
+    void fillSubmitCloseRegistrationForm() {
+        registrationForm.openPage()
+                .setFirstName(fistName)
                 .setLastName(lastName)
                 .setEmail(email)
                 .setGender(gender)
-                .setPhoneNumber(phoneNumber)
-                .setBirthDate(birthDate)
-                .setSubject(subject)
-                .setHobby(hobby)
-                .uploadPicture(imgPath)
+                .setPhoneNumber(mobile)
+                .setDateOfBirth(birthDay, birthMonth, birthYear)
+                .setSubjectsWithAutocomplete(subject)
+                .setHobbies(hobbie)
+                .setPicture("img/38.png")
                 .setAddress(address)
-                .setStateAndCity(state, city)
-                .submitForm()
-                .checkTitle("Thanks for submitting the form")
-                .checkResult("Student Name", expectedFullName)
-                .checkResult("Student Email", email)
-                .checkResult("Gender", gender)
-                .checkResult("Mobile", phoneNumber)
-                .checkResult("Date of Birth", expectedDate)
-                .checkResult("Subjects", subject)
-                .checkResult("Hobbies", hobby)
-                .checkResult("Picture", expectedFileName)
-                .checkResult("Address", address)
-                .checkResult("State and City", expectedLocation);
+                .setState(state)
+                .setCity(city)
+                .submit()
+                .checkTableHeaderHasText("Thanks for submitting the form")
+                .checkTableRowHasText("Student Name", fullName)
+                .checkTableRowHasText("Student Email", email)
+                .checkTableRowHasText("Gender", gender)
+                .checkTableRowHasText("Mobile", mobile)
+                .checkTableRowHasText("Date of Birth", birthDay + " " + birthMonth + "," + birthYear)
+                .checkTableRowHasText("Subjects", String.join(", ", subjectsFull))
+                .checkTableRowHasText("Hobbies", String.join(", ", hobbies))
+                .checkTableRowHasText("Picture", "cat.png")
+                .checkTableRowHasText("Address", address)
+                .checkTableRowHasText("Mobile", mobile)
+                .checkTableRowHasText("State and City", state + " " + city)
+                .closeModal()
+                .checkModalClosed();
     }
-}
+}}
