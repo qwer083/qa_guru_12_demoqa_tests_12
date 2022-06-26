@@ -1,23 +1,23 @@
-package guru.qa.tests;
+package guru.qa.test;
 
 import org.junit.jupiter.api.*;
 
 public class JUnit5Tests {
-@BeforeAll
-static void initDB() {
-    System.out.println("### @BeforeAll");
-}
+    @BeforeAll
+    static void initDB() {
+        System.out.println("### @BeforeAll");
+    }
 
 
     @BeforeEach
     void openYAPage() {
         System.out.println("###     @BeforeEach");
-       // Selenide.open("https://ya.ru");
+        // Selenide.open("https://ya.ru");
     }
     @AfterEach
     void close() {
         System.out.println("###     @AfterEach");
-      //  WebDriverRunner.closeWindow();
+        //  WebDriverRunner.closeWindow();
     }
 
     @AfterAll
@@ -31,10 +31,10 @@ static void initDB() {
         // ... поиск в новостях
     }
 
-        @Test
-        void assertTest2() {
-            System.out.println("###      @Test 1");
-            // ... поиск в картинках
+    @Test
+    void assertTest2() {
+        System.out.println("###      @Test 1");
+        // ... поиск в картинках
     }
 
     @Test
@@ -49,3 +49,4 @@ static void initDB() {
         // ... поиск в новостях
     }
 }
+
