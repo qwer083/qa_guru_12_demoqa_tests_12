@@ -10,8 +10,6 @@ import java.io.File;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
-import static guru.qa.Utils.RandomUtils.getRandomEmail;
-import static guru.qa.Utils.RandomUtils.getRandomString;
 import static java.lang.String.format;
 
 public class RegistrationFormWithFakerTests {

@@ -1,4 +1,4 @@
-package guru.qa.Utils;
+package guru.qa.docs;
 
 import java.util.Random;
 
