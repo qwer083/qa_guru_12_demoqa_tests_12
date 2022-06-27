@@ -4,12 +4,10 @@ package guru.qa.homeWork;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import pages.formValidation.*
-
-import java.util.List;
+import pages.formValidation.*;
 
 import static java.lang.String.format;
-import static utils.RandomUtils.*
+import static utils.RandomUtils.*;
 
 
 public class PracticeFormTest extends formValidation {
@@ -33,35 +31,24 @@ public class PracticeFormTest extends formValidation {
             city = "Noida";
 
     @Test
-    @DisplayName("Fill and submit registration form")
-    void fillSubmitCloseRegistrationForm() {
-        registrationForm.openPage()
-                .setFirstName(fistName)
-                .setLastName(lastName)
-                .setEmail(email)
-                .setGender(gender)
-                .setPhoneNumber(mobile)
-                .setDateOfBirth(birthDay, birthMonth, birthYear)
-                .setSubjectsWithAutocomplete(subject)
-                .setHobbies(hobbie)
-                .setPicture("img/38.png")
-                .setAddress(address)
-                .setState(state)
-                .setCity(city)
+    <RegistrationFormPage>
+    void fillFormTest() {
+        RegistrationFormPage registrationFormPage = new RegistrationFormPage();
+        registrationFormPage.openPage()
+                .setFirstName()
+                .setLastName()
+                .setUserEmail()
+                .setGender()
+                .setUserNumber()
+                .setBirthDay()
+                .setSubject()
+                .setHobby()
+                .uploadPicture()
+                .setAddress()
+                .setState()
+                .setCity()
                 .submit()
-                .checkTableHeaderHasText("Thanks for submitting the form")
-                .checkTableRowHasText("Student Name", fullName)
-                .checkTableRowHasText("Student Email", email)
-                .checkTableRowHasText("Gender", gender)
-                .checkTableRowHasText("Mobile", mobile)
-                .checkTableRowHasText("Date of Birth", birthDay + " " + birthMonth + "," + birthYear)
-                .checkTableRowHasText("Subjects", String.join(", ", subjectsFull))
-                .checkTableRowHasText("Hobbies", String.join(", ", hobbies))
-                .checkTableRowHasText("Picture", "cat.png")
-                .checkTableRowHasText("Address", address)
-                .checkTableRowHasText("Mobile", mobile)
-                .checkTableRowHasText("State and City", state + " " + city)
-                .closeModal()
-                .checkModalClosed();
+                .checkResult();
+
     }
-}}
+}
